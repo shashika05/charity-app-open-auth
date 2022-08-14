@@ -78,3 +78,5 @@ const Donates = [
     stars: 100,
   },
 ];
+
+export default Donates;

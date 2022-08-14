@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
@@ -9,21 +8,23 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const BottomBar = () => {
+const BottomBar = ({ modalVisible, setModalVisible }) => {
   const navigation = useNavigation();
   const [isDonateActive, setDonateActive] = useState(true);
   //   const [isProfileActive, setProfileActive] = useState(false);
 
   const onDonateListPress = () => {
     setDonateActive(true);
-    // setProfileActive(false);
     navigation.navigate("DonateList");
   };
 
   const onProfilePress = () => {
-    // setProfileActive(true);
     setDonateActive(false);
     navigation.navigate("Profile");
+  };
+
+  const onAddBtnPress = () => {
+    setModalVisible(!modalVisible);
   };
 
   return (
@@ -41,8 +42,11 @@ const BottomBar = () => {
           color={isDonateActive ? "#7db5f0" : "#1b2b64"}
         />
       </TouchableHighlight>
-      <TouchableOpacity style={styles.middleBtn}>
-        <FontAwesome5 name="plus" size={36} color="#1b2b64" />
+      <TouchableOpacity
+        onPress={onAddBtnPress}
+        style={[styles.middleBtn, { opacity: modalVisible ? 0 : 100 }]}
+      >
+        <FontAwesome5 name="plus" size={56} color="#1b2b64" />
       </TouchableOpacity>
       <TouchableHighlight
         style={[
@@ -71,8 +75,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // justifyContent: "center",
     justifyContent: "space-around",
-    borderRadius: 100,
-    marginTop: 12,
+    borderRadius: 80,
+    margin: 6,
   },
   btn: {
     width: 50,
@@ -89,11 +93,10 @@ const styles = StyleSheet.create({
   },
   middleBtn: {
     width: 70,
-    height: 100,
+    height: 75,
     alignItems: "center",
-    // justifyContent: "center",
-    paddingTop: 20,
-    backgroundColor: "#1c9eee",
+    paddingTop: 6,
+    backgroundColor: "#7db5f0",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
   },

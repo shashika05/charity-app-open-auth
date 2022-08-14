@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Profile() {
+export default function Profile({ userID }) {
+  // console.log(user.uid);
   return (
     <View style={styles.container}>
-      <Text>Profile</Text>
+      <Text>{userID}</Text>
     </View>
   );
 }
