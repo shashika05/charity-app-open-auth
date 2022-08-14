@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -22,7 +28,7 @@ const BottomBar = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      <TouchableHighlight
         style={[
           styles.btn,
           isDonateActive ? styles.btnActive : styles.btnInActive,
@@ -34,11 +40,11 @@ const BottomBar = () => {
           size={24}
           color={isDonateActive ? "#7db5f0" : "#1b2b64"}
         />
-      </TouchableOpacity>
+      </TouchableHighlight>
       <TouchableOpacity style={styles.middleBtn}>
-        <FontAwesome5 name="plus" size={32} color="#1b2b64" />
+        <FontAwesome5 name="plus" size={36} color="#1b2b64" />
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableHighlight
         style={[
           styles.btn,
           !isDonateActive ? styles.btnActive : styles.btnInActive,
@@ -50,7 +56,7 @@ const BottomBar = () => {
           size={24}
           color={!isDonateActive ? "#7db5f0" : "#1b2b64"}
         />
-      </TouchableOpacity>
+      </TouchableHighlight>
     </View>
   );
 };
@@ -65,6 +71,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // justifyContent: "center",
     justifyContent: "space-around",
+    borderRadius: 100,
+    marginTop: 12,
   },
   btn: {
     width: 50,
@@ -83,13 +91,10 @@ const styles = StyleSheet.create({
     width: 70,
     height: 100,
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
+    paddingTop: 20,
     backgroundColor: "#1c9eee",
-    borderTopColor: "#7db5f0",
-    borderTopWidth: 2,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomEndRadius: 35,
-    borderBottomStartRadius: 35,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
 });
