@@ -14,15 +14,15 @@ const AddModal = ({ modalVisible, setModalVisible }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  // const clearAll = async () => {
-  //   try {
-  //     await AsyncStorage.clear();
-  //   } catch (e) {
-  //     // clear error
-  //   }
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      // clear error
+    }
 
-  //   console.log("Done.");
-  // };
+    console.log("Done.");
+  };
 
   return (
     <Modal
@@ -60,7 +60,7 @@ const AddModal = ({ modalVisible, setModalVisible }) => {
               keyboardType="default"
             />
           </View>
-          <TouchableOpacity style={styles.middleBtn}>
+          <TouchableOpacity onPress={clearAll} style={styles.middleBtn}>
             <FontAwesome5 name="plus" size={56} color="#1b2b64" />
           </TouchableOpacity>
           <TouchableOpacity

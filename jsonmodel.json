@@ -1,0 +1,23 @@
+{
+  "users": {
+    "5Xoan097yhOOPVm3V5DOv9omkfF2": [
+      {
+        "name": "John Smith",
+        "phoneNum": "0112345671",
+        "imageUrl": "https://ui-avatars.com/api/?name=John+Smith&size=512&background=random",
+        "nearestLocation": "Colombo",
+        "address": "11/2,OMKO, Colombo",
+        "likeCount": 100,
+        "posts": [
+          {
+            "id": 0,
+            "title": "Donate for Charity App",
+            "description": "I am a full stack developer and Currently I am developing a charity app for use which can more effective in future",
+            "tags": ["donation", "appDev", "forCharity"],
+            "stars": 100
+          }
+        ]
+      }
+    ]
+  }
+}

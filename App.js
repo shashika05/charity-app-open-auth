@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
-import { onAuthStateChanged, signInAnonymously, getAuth } from "firebase/auth";
-import { auth } from "./firebase";
+import { signInAnonymously } from "firebase/auth";
+import { auth, db } from "./firebase";
+import { ref, child, get, set } from "firebase/database";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -20,27 +21,34 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [userID, setUserID] = useState("");
-  // const auth = getAuth(app);
-  const storeData = async (user) => {
+  const [userData, setUser] = useState({});
+
+  const storeData = async () => {
     try {
-      await AsyncStorage.setItem("uid", user.user.uid);
+      await AsyncStorage.setItem("uid", userID);
     } catch (e) {
       // saving error
       console.log(e);
     }
   };
-  const getData = async () => {
+  const userHandle = async () => {
     try {
-      const value = await AsyncStorage.getItem("uid");
-      if (value !== null) {
-        setUserID(value);
+      const uid = await AsyncStorage.getItem("uid");
+      if (uid !== null) {
+        setUserID(uid);
+        getData();
       } else {
         signInAnonymously(auth)
           .then((user) => {
             // console.log(user);
-            storeData(user);
             setUserID(user.user.uid);
+            storeData();
+            set(ref(db, `users/${userID}`), {
+              textSample: "User Added",
+              uid: userID,
+            });
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -52,8 +60,26 @@ export default function App() {
       console.log(e);
     }
   };
+
+  const getData = () => {
+    const dbRef = ref(db);
+    get(child(dbRef, `users/${userID}`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setUser(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
-    getData();
+    userHandle();
+
+    /////
   });
   let [fontLoaded] = useFonts({
     "Kanit-300": require("./src/fonts/Kanit-300.ttf"),
@@ -85,7 +111,7 @@ export default function App() {
       >
         <Stack.Screen
           name="Profile"
-          children={() => <Profile userID={userID} />}
+          children={() => <Profile userData={userData} />}
         />
         <Stack.Screen
           component={DonateList}

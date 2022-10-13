@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+// import { Entypo } from '@expo/vector-icons';
 
 const CardComponent = () => {
   const [starGiven, setStarGiven] = useState(false);
@@ -24,20 +25,9 @@ const CardComponent = () => {
               uri: `https://ui-avatars.com/api/?name=${name}&size=512&background=random`,
             }}
           />
-          <Text>Name: {name}</Text>
-          <Text>Location: Colombo</Text>
-          <TouchableOpacity
-            style={{
-              flexDirection: "row",
-              backgroundColor: "gray",
-              paddingHorizontal: 16,
-              paddingVertical: 3,
-              borderRadius: 4,
-              justifyContent: "center",
-              alignItems: "stretch",
-            }}
-            onPress={onStarPress}
-          >
+          <Text>{name}</Text>
+
+          <TouchableOpacity style={styles.starBtn} onPress={onStarPress}>
             <AntDesign
               name={starGiven ? "star" : "staro"}
               size={20}
@@ -49,7 +39,14 @@ const CardComponent = () => {
         </View>
         <View style={styles.mainView1Sub2}></View>
       </View>
-      <View style={styles.mainView2}></View>
+      <View style={styles.mainView2}>
+        <View style={styles.locationBtn}>
+          <Text>
+            <Entypo name="location-pin" size={12} color="black" />
+            Colombo
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -59,7 +56,7 @@ export default CardComponent;
 const styles = StyleSheet.create({
   containter: {
     width: "98%",
-    height: 240,
+    height: 200,
     margin: 4,
     backgroundColor: "skyblue",
     borderRadius: 16,
@@ -83,6 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // backgroundColor: "#7a7a3a",
     flex: 0.2,
+    alignItems: "center",
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
   },
@@ -91,11 +89,28 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#3b3e2f",
+    // backgroundColor: "#3b3e2f",
   },
   mainView1Sub2: {
     flex: 0.6,
     borderTopRightRadius: 16,
-    // backgroundColor: "#2a3b4c",
+    backgroundColor: "#efefef",
+  },
+  starBtn: {
+    flexDirection: "row",
+    backgroundColor: "gray",
+    paddingHorizontal: 16,
+    paddingVertical: 3,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "stretch",
+  },
+  locationBtn: {
+    backgroundColor: "gray",
+    paddingHorizontal: 12,
+    paddingVertical: 3,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

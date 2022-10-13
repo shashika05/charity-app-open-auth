@@ -7,6 +7,7 @@ export default function DonateList() {
   return (
     <View style={styles.container}>
       <CardComponent />
+      <CardComponent />
     </View>
   );
 }
